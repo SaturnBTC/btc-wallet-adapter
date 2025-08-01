@@ -29,7 +29,7 @@
   "dependencies": {
     "@sats-connect/core": "^0.5.5",
     "@saturnbtcio/psbt": "^0.0.4",
-    "bitcoin-address-validation": "^2.2.1",
+    "bitcoin-address-validation": "^2.2.3",
     "decimal.js": "^10.4.3"
   },
   "prettier": {
@@ -46,4 +46,4 @@
     "insertPragma": false,
     "endOfLine": "lf"
   }
-} 
+}

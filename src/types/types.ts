@@ -35,14 +35,6 @@ export interface UnsignedPsbt {
   inputsToSign: InputToSign[];
 }
 
-// export interface SatoshisPerCollection {
-//   collection: CollectionDto;
-//   tradeableAmount: string;
-//   lockedAmount: string;
-//   inUseAmount: string;
-//   totalAmount: string;
-// }
-
 // TODO: Check if needed
 export interface IConnectResponse {
   addresses: Array<Address>;

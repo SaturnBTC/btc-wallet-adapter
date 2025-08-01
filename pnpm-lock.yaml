@@ -12,7 +12,7 @@ dependencies:
     specifier: ^0.0.4
     version: 0.0.4
   bitcoin-address-validation:
-    specifier: ^2.2.1
+    specifier: ^2.2.3
     version: 2.2.3
   decimal.js:
     specifier: ^10.4.3

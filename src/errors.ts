@@ -1,4 +1,4 @@
-import type { WalletError } from './types.js';
+import type { WalletError } from './types/types';
 
 export class WalletException extends Error {
   static Messages: Record<WalletError, string> = {

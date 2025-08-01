@@ -1,8 +1,8 @@
-import { BitcoinNetworkType, Network } from './types';
+import { BitcoinNetworkType, Network } from './types/types';
 
-export function transformNetworkToSatsConnect(
+export const transformNetworkToSatsConnect = (
   network: Network,
-): BitcoinNetworkType {
+): BitcoinNetworkType => {
   switch (network) {
     case 'mainnet':
       return BitcoinNetworkType.Mainnet;
@@ -13,4 +13,14 @@ export function transformNetworkToSatsConnect(
     default:
       throw new Error('Unsupported network');
   }
-}
+};
+
+export const base64ToHex = (base64: string): string => {
+  const buffer = Buffer.from(base64, 'base64');
+  return buffer.toString('hex');
+};
+
+export const hexToBase64 = (hex: string): string => {
+  const buffer = Buffer.from(hex, 'hex');
+  return buffer.toString('base64');
+};

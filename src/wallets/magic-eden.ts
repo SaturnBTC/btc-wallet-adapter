@@ -20,7 +20,7 @@ import {
   BitcoinProvider,
   UnsignedPsbt,
   WalletName,
-} from '../types';
+} from '../types/types';
 import { transformNetworkToSatsConnect } from '../utils';
 
 export class MagicEdenWallet extends BitcoinWallet {
@@ -44,7 +44,7 @@ export class MagicEdenWallet extends BitcoinWallet {
     this.internalNetwork = transformNetworkToSatsConnect(network);
   }
 
-  override async initialize(network: Network): Promise<BitcoinWallet> {
+  override async initialize(network: Network): Promise<MagicEdenWallet> {
     const addresses = await new Promise<Array<Address>>(
       async (resolve, reject) => {
         try {

@@ -6,7 +6,7 @@ import {
   type UnsignedPsbt,
   type WalletName,
   type WalletType,
-} from './types.js';
+} from './types/types';
 
 export interface BitcoinWalletProps {
   readonly walletName: WalletName;
