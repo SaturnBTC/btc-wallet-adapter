@@ -123,7 +123,6 @@ export class XverseWallet extends BitcoinWallet {
     msg: string,
     type?: 'ecdsa' | 'bip322-simple',
   ): Promise<string> {
-    // useWallet hook should handle errors from this
     const addressToSignWith = this.runeAddress;
     const response = await request('signMessage', {
       address: addressToSignWith.address,

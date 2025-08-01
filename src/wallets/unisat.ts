@@ -127,7 +127,6 @@ export class UnisatWallet extends BitcoinWallet {
       }
       return signedTxs.map((signedTx: string) => hexToBase64(signedTx));
     } catch {
-      console.log('User cancelled');
       throw new WalletException('user_cancelled');
     }
   }
