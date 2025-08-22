@@ -26,7 +26,7 @@ export class UnisatWallet extends BitcoinWallet {
     this.internalChain = transformNetworkName(network);
   }
 
-  override async initialize(network: Network): Promise<UnisatWallet> {
+  static async initialize(network: Network): Promise<UnisatWallet> {
     if (window.unisat === undefined) {
       throw new WalletException('wallet_not_installed');
     }

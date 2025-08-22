@@ -18,7 +18,7 @@ export interface BitcoinWalletProps {
 
   getSignerAddress(): Address;
   checkIsAddressTypeP2tr(): boolean;
-  initialize(network: Network): Promise<BitcoinWallet>;
+  // initialize(network: Network): Promise<BitcoinWallet>;
   signPsbt(unsignedPsbt64: UnsignedPsbt, broadcast: boolean): Promise<string>;
   signPsbts(
     unsignedPsbts64: UnsignedPsbt[],
@@ -52,8 +52,6 @@ export abstract class BitcoinWallet implements BitcoinWalletProps {
   checkIsAddressTypeP2tr(): boolean {
     return this.runeAddress.addressType === AddressType.p2tr;
   }
-
-  abstract initialize(network: Network): Promise<BitcoinWallet>;
 
   abstract signPsbt(
     unsignedPsbt64: UnsignedPsbt,

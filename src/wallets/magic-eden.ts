@@ -43,7 +43,10 @@ export class MagicEdenWallet extends BitcoinWallet {
     this.internalNetwork = transformNetworkToSatsConnect(network);
   }
 
-  override async initialize(network: Network): Promise<MagicEdenWallet> {
+  static async initialize(
+    provider: BitcoinProvider,
+    network: Network,
+  ): Promise<MagicEdenWallet> {
     try {
       const response = await request('getAddresses', {
         purposes: [AddressPurpose.Payment, AddressPurpose.Ordinals],
@@ -53,7 +56,7 @@ export class MagicEdenWallet extends BitcoinWallet {
         return new MagicEdenWallet(
           network,
           response.result.addresses,
-          this.provider,
+          provider,
         );
       } else {
         if (response.error.code === RpcErrorCode.USER_REJECTION) {

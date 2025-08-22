@@ -39,7 +39,10 @@ export class XverseWallet extends BitcoinWallet {
     this.internalNetwork = transformNetworkToSatsConnect(network);
   }
 
-  override async initialize(network: Network): Promise<XverseWallet> {
+  static async initialize(
+    provider: BitcoinProvider,
+    network: Network,
+  ): Promise<XverseWallet> {
     try {
       const response = await request('wallet_connect', {
         addresses: [AddressPurpose.Ordinals, AddressPurpose.Payment],
@@ -48,7 +51,7 @@ export class XverseWallet extends BitcoinWallet {
         return new XverseWallet(
           network,
           response.result.addresses,
-          this.provider,
+          provider,
           response.result.walletType,
         );
       } else {
