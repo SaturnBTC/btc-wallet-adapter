@@ -27,7 +27,8 @@ export type WalletError =
   | 'wallet_not_in_same_network'
   | 'invalid_network'
   | 'wallet_not_connected'
-  | 'wallet_busy';
+  | 'wallet_busy'
+  | 'rpc_error';
 
 // TODO: Check if needed
 export interface UnsignedPsbt {

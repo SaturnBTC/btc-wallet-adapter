@@ -1,7 +1,5 @@
 import {
-  getAddress,
-  GetAddressOptions,
-  GetAddressResponse,
+  request,
   MessageSigningProtocols,
   signMessage,
   SignMessageOptions,
@@ -9,6 +7,7 @@ import {
   SignTransactionOptions,
   SignTransactionPayload,
   SignTransactionResponse,
+  RpcErrorCode,
 } from '@sats-connect/core';
 import { Network } from '@saturnbtcio/psbt';
 import { BitcoinWallet } from '../adapter';
@@ -45,36 +44,29 @@ export class MagicEdenWallet extends BitcoinWallet {
   }
 
   override async initialize(network: Network): Promise<MagicEdenWallet> {
-    const addresses = await new Promise<Array<Address>>(
-      async (resolve, reject) => {
-        try {
-          const getAddressOptions: GetAddressOptions = {
-            payload: {
-              purposes: [AddressPurpose.Payment, AddressPurpose.Ordinals],
-              message: 'Address for receiving Ordinals and payments',
-              network: {
-                type: this.internalNetwork,
-              },
-            },
-            getProvider: async () => this.provider,
-            onFinish: (response: GetAddressResponse) => {
-              resolve(response.addresses);
-            },
-            onCancel: () => {
-              console.warn('User cancelled');
-              reject(new WalletException('user_cancelled'));
-            },
-          };
-
-          await getAddress(getAddressOptions);
-        } catch {
-          console.error('Wallet not installed');
-          reject(new WalletException('wallet_not_installed'));
+    try {
+      const response = await request('getAddresses', {
+        purposes: [AddressPurpose.Payment, AddressPurpose.Ordinals],
+        message: 'Address for receiving Ordinals and payments',
+      });
+      if (response.status === 'success') {
+        return new MagicEdenWallet(
+          network,
+          response.result.addresses,
+          this.provider,
+        );
+      } else {
+        if (response.error.code === RpcErrorCode.USER_REJECTION) {
+          throw new WalletException('user_cancelled');
+        } else {
+          console.error(response.error);
+          throw new WalletException('rpc_error');
         }
-      },
-    );
-
-    return new MagicEdenWallet(network, addresses, this.provider);
+      }
+    } catch {
+      console.error('Wallet not installed');
+      throw new WalletException('wallet_not_installed');
+    }
   }
 
   override signPsbt(

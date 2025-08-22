@@ -9,6 +9,7 @@ export class WalletException extends Error {
     invalid_network: 'Selected network is invalid',
     wallet_not_connected: 'Wallet is not connected',
     wallet_busy: 'Wallet is busy',
+    rpc_error: 'RPC error occured',
   };
   code: WalletError;
 
