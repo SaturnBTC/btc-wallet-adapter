@@ -43,6 +43,13 @@ export abstract class BitcoinWallet implements BitcoinWalletProps {
       (a) => a.purpose === AddressPurpose.Payment,
     );
     this.walletType = walletType;
+
+    // Bind methods
+    this.getSignerAddress = this.getSignerAddress.bind(this);
+    this.checkIsAddressTypeP2tr = this.checkIsAddressTypeP2tr.bind(this);
+    this.signMessage = this.signMessage.bind(this);
+    this.signPsbt = this.signPsbt.bind(this);
+    this.signPsbts = this.signPsbts.bind(this);
   }
 
   getSignerAddress(): Address {
